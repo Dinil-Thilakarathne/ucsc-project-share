@@ -1,12 +1,14 @@
-import { auth } from '@/auth'
-import Link from 'next/link'
-import { Button } from '@/components/ui/button'
-import { UserMenu } from './user-menu'
-import { MobileNav } from './mobile-nav'
+import { auth } from "@/auth";
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
+import { UserMenu } from "./user-menu";
+import { MobileNav } from "./mobile-nav";
 import Image from "next/image";
+import OutlineButton from "./ui/outline-button";
+import BubbleUpButton from "./ui/bubble-up-button";
 
 export async function Navbar() {
-  const session = await auth()
+  const session = await auth();
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 supports-backdrop-filter:bg-background/60 backdrop-blur">
@@ -93,10 +95,10 @@ export async function Navbar() {
               </nav>
               <div className="hidden sm:flex items-center gap-2">
                 <Link href="/login">
-                  <Button variant="ghost">Sign In</Button>
+                  <OutlineButton>Sign In</OutlineButton>
                 </Link>
                 <Link href="/register">
-                  <Button>Sign Up</Button>
+                  <BubbleUpButton className="py-2">Sign Up</BubbleUpButton>
                 </Link>
               </div>
               <div className="flex sm:hidden">
@@ -107,5 +109,5 @@ export async function Navbar() {
         </div>
       </div>
     </header>
-  )
+  );
 }

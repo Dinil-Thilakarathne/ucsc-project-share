@@ -121,3 +121,9 @@
     @apply bg-background text-foreground;
   }
 }
+
+@layer components {
+  .btn {
+    @apply px-12 lg:px-24 py-4 rounded-full w-fit h-fit;
+  }
+}
