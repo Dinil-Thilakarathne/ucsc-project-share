@@ -43,7 +43,7 @@ export default function BubbleUpButton({
       onMouseLeave={handleMouseLeave}
       disabled={disabled}
       className={cn(
-        "relative flex h-fit w-fit cursor-pointer overflow-clip border bg-black px-8 lg:px-24 py-4 rounded-full transition-opacity duration-200 ",
+        "relative flex h-fit w-fit cursor-pointer overflow-clip border bg-primary px-8 lg:px-24 py-4 rounded-full transition-opacity duration-200  border-primary",
         disabled && "cursor-not-allowed opacity-50",
         className
       )}
@@ -55,10 +55,10 @@ export default function BubbleUpButton({
         animate={controls}
         initial={{ clipPath: "ellipse(0% 0% at 50% 100%)" }}
         transition={motionControls.transition}
-        className="absolute top-0 left-0 h-full w-full bg-primary"
+        className="absolute top-0 left-0 h-full w-full bg-black"
         aria-hidden="true"
       />
-      <span className="relative text-white mix-blend-difference">
+      <span className="relative text-slate-100 mix-blend-difference">
         {children}
       </span>
     </button>
