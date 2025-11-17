@@ -6,9 +6,11 @@ import { MobileNav } from "./mobile-nav";
 import Image from "next/image";
 import OutlineButton from "./ui/outline-button";
 import BubbleUpButton from "./ui/bubble-up-button";
+import { isAdmin } from '@/lib/utils/admin'
 
 export async function Navbar() {
-  const session = await auth();
+  const session = await auth()
+  const userIsAdmin = isAdmin(session)
 
   return (
     <header className="sticky top-0 min-h-(--header-height) z-50 w-full _border-b _bg-background/95 supports-backdrop-filter:bg-background/60 backdrop-blur py-4 bg-transparent">
@@ -79,6 +81,14 @@ export async function Navbar() {
                 >
                   Explore
                 </Link>
+                {userIsAdmin && (
+                  <Link
+                    href="/admin"
+                    className="transition-colors hover:text-foreground/80 text-foreground/60"
+                  >
+                    Admin
+                  </Link>
+                )}
               </nav>
               <UserMenu user={session.user} />
               <MobileNav session={session} />
