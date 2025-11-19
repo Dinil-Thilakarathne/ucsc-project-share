@@ -243,7 +243,7 @@ export default async function Dashboard() {
                   >
                     <div className="flex-1">
                       <h3 className="font-semibold mb-1">{project.title}</h3>
-                      <div className="flex items-center gap-4 text-sm text-muted-foreground">
+                      <div className="flex w-full justify-between md:justify-start items-center gap-4 text-sm text-muted-foreground">
                         <span className="flex items-center gap-1">
                           <Eye className="h-4 w-4" />
                           {project.views} views
