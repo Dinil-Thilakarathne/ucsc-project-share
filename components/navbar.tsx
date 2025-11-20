@@ -1,16 +1,34 @@
 import { auth } from "@/auth";
 import Link from "next/link";
-import { Button } from "@/components/ui/button";
 import { UserMenu } from "./user-menu";
 import { MobileNav } from "./mobile-nav";
 import Image from "next/image";
 import OutlineButton from "./ui/outline-button";
 import BubbleUpButton from "./ui/bubble-up-button";
-import { isAdmin } from '@/lib/utils/admin'
+import { isAdmin } from "@/lib/utils/admin";
+import { getDatabase } from "@/lib/mongodb";
+import { User } from "@/lib/models/User";
+import { ObjectId } from "mongodb";
 
 export async function Navbar() {
-  const session = await auth()
-  const userIsAdmin = isAdmin(session)
+  const session = await auth();
+
+  let dbUser: User | null = null;
+  if (session?.user?.id) {
+    const db = await getDatabase();
+    dbUser = await db.collection<User>("users").findOne({
+      _id: new ObjectId(session.user.id),
+    });
+  }
+
+  const userIsAdmin = isAdmin(session);
+
+  const userMenuData = session?.user
+    ? {
+        ...session.user,
+        image: dbUser?.profilePicture || session.user.image || null,
+      }
+    : null;
 
   return (
     <header className="sticky top-0 min-h-(--header-height) z-50 w-full _border-b _bg-background/95 supports-backdrop-filter:bg-background/60 backdrop-blur py-4 bg-transparent">
@@ -25,38 +43,6 @@ export async function Navbar() {
               priority
             />
           </Link>
-          {/* {session && (
-            <nav className="hidden md:flex items-center gap-6 text-sm">
-              <Link
-                href="/dashboard"
-                className="transition-colors hover:text-foreground/80 text-foreground/60"
-              >
-                Dashboard
-              </Link>
-              <Link
-                href="/projects"
-                className="transition-colors hover:text-foreground/80 text-foreground/60"
-              >
-                Projects
-              </Link>
-              <Link
-                href="/explore"
-                className="transition-colors hover:text-foreground/80 text-foreground/60"
-              >
-                Explore
-              </Link>
-            </nav>
-          )} */}
-          {/* {!session && (
-            <nav className="hidden md:flex items-center gap-6 text-sm">
-              <Link
-                href="/explore"
-                className="transition-colors hover:text-foreground/80 text-foreground/60"
-              >
-                Explore
-              </Link>
-            </nav>
-          )} */}
         </div>
 
         <div className="flex items-center gap-6">
@@ -96,7 +82,7 @@ export async function Navbar() {
                   </Link>
                 )}
               </nav>
-              <UserMenu user={session.user} />
+              {userMenuData && <UserMenu user={userMenuData} />}
               <MobileNav session={session} />
             </>
           ) : (
