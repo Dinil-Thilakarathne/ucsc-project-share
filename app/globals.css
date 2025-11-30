@@ -161,6 +161,7 @@
 [data-sonner-toast][data-type="error"] {
   background-color: rgba(239, 68, 68, 0.3) !important;
   border-color: rgba(248, 113, 113, 0.3) !important;
+  border-width: 1px !important;
 }
 [data-sonner-toast][data-type="error"],
 [data-sonner-toast][data-type="error"][data-icon="true"],
@@ -178,7 +179,7 @@
 
 /* Warning: Glassy Yellow (adaptive from color scheme) */
 [data-sonner-toast][data-type="warning"] {
-  background-color: rgba(255, 193, 6, 0.559) !important;
+  background-color: rgba(255, 193, 6, 0.4) !important;
   border-color: rgba(250, 204, 21, 0.3) !important;
   border-width: 1px !important;
 }
